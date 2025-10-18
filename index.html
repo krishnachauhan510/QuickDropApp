@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickDropAPP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.png">
+</head>
+
+<body>
+    <div id="app-container" class="w-full max-w-4xl mx-auto p-4">
+        <main class="main-card">
+
+            <!-- UPLOAD VIEW -->
+            <div id="upload-view" class="view active">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div id="dropzone" class="dropzone-container">
+                        <svg class="mx-auto h-16 w-16 text-gray-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-4-4V7a4 4 0 014-4h10a4 4 0 014 4v5a4 4 0 01-4 4h-3l-4 4z"></path>
+                        </svg>
+                        <button type="button" class="select-button">Select files to send</button>
+                        <p class="mt-2 text-sm text-gray-500">Or drag stuff here</p>
+                        <p id="file-name" class="mt-4 text-sm text-gray-300 font-medium truncate"></p>
+                        <input type="file" id="file-input" class="hidden">
+                    </div>
+
+                    <div class="text-content">
+                        <h1 class="text-4xl font-bold leading-tight">
+                            Simple, private file sharing
+                        </h1>
+                        <p class="mt-4 text-gray-400">
+                            QuickDrop lets you share files with a link that automatically expires. So you can keep what you share private and make sure your stuff doesn't stay online forever.
+                        </p>
+                        <div id="upload-options" class="mt-6 space-y-4 hidden">
+                            <div>
+                                <label for="expiration" class="block text-sm font-medium text-gray-400 mb-1">Expire after:</label>
+                                <select id="expiration" name="expiration" class="form-input">
+                                    <option value="600">10 Minutes</option>
+                                    <option value="3600">1 Hour</option>
+                                    <option value="86400">24 Hours</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="password" class="block text-sm font-medium text-gray-400 mb-1">Password (optional):</label>
+                                <input type="password" id="password" name="password" placeholder="Protect your file" class="form-input">
+                            </div>
+                            <div class="flex items-center">
+                                <input id="one-time-download" name="one-time-download" type="checkbox" class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-pink-500 focus:ring-pink-500">
+                                <label for="one-time-download" class="ml-2 block text-sm text-gray-300">Delete after first download</label>
+                            </div>
+                            <button id="upload-button" class="upload-button" disabled>
+                                Upload
+                            </button>
+                        </div>
+                         <div id="progress-wrapper" class="mt-4 hidden">
+                            <progress id="upload-progress" value="0" max="100" class="w-full h-2 rounded-full"></progress>
+                            <p id="progress-text" class="text-center text-sm mt-2 text-gray-400">Uploading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LINK VIEW -->
+            <div id="link-view" class="view text-center">
+                <h1 class="text-4xl font-bold heading-gradient mb-2">Your file is ready to share!</h1>
+                <p class="text-gray-400 mb-6">Copy the link to share your file</p>
+                <div class="relative max-w-lg mx-auto">
+                    <input id="share-link" type="text" readonly class="share-link-input">
+                    <button id="copy-button" class="copy-button">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        <span>Copy link</span>
+                    </button>
+                </div>
+                 <p id="copy-feedback" class="text-green-400 text-sm mt-2 h-4"></p>
+                
+                <div class="mt-8 flex justify-center items-center gap-8">
+                    <div class="status-indicator">
+                         <svg class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                         <div>
+                            <p class="font-semibold">Secured</p>
+                            <p class="text-sm text-gray-400">Ready for sharing</p>
+                         </div>
+                    </div>
+                     <div class="status-indicator">
+                         <svg class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                         <div>
+                            <p class="font-semibold">Uploaded</p>
+                            <p class="text-sm text-gray-400">You can close this page now</p>
+                         </div>
+                    </div>
+                </div>
+                
+                 <button id="upload-another-button" class="mt-8 text-pink-400 font-medium hover:text-pink-300 transition-colors">
+                    Upload Another File
+                </button>
+            </div>
+
+            <!-- DOWNLOAD VIEW -->
+            <div id="download-view" class="view text-center max-w-md mx-auto">
+                 <div id="file-details">
+                    <svg class="mx-auto h-16 w-16 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <h2 id="download-file-name" class="text-3xl font-bold mt-4 truncate"></h2>
+                    <p id="download-file-size" class="text-gray-400"></p>
+                    <button id="download-button" class="download-button">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Download File
+                    </button>
+                    <p id="download-timer" class="text-sm text-gray-500 mt-4"></p>
+                </div>
+                <div id="password-prompt" class="hidden">
+                    <h2 class="text-2xl font-semibold mb-2">Password Required</h2>
+                    <p class="text-gray-400 mb-4">This file is password protected.</p>
+                    <input type="password" id="download-password" placeholder="Enter password" class="form-input mb-4">
+                    <button id="password-submit-button" class="upload-button w-full">Unlock</button>
+                    <p id="password-error" class="text-red-400 text-sm mt-2 h-4"></p>
+                </div>
+            </div>
+            
+            <!-- ERROR/EXPIRED VIEW -->
+            <div id="error-view" class="view text-center max-w-md mx-auto">
+                <svg class="mx-auto h-16 w-16 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h2 id="error-title" class="text-3xl font-semibold mt-4">Link Expired or Invalid</h2>
+                <p id="error-message" class="text-gray-400 mt-2">This file is no longer available.</p>
+                <button id="error-home-button" class="mt-6 text-pink-400 font-medium hover:text-pink-300 transition-colors">
+                    Upload a File
+                </button>
+            </div>
+
+            <!-- LOADING SPINNER -->
+            <div id="loading-view" class="view">
+                <div class="flex justify-center items-center">
+                    <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-pink-500"></div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
+

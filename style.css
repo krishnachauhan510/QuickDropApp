@@ -1,0 +1,200 @@
+/* General Body and Font Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0c0a09;
+    background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2071&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #f5f5f5; /* neutral-100 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Main Card Container */
+.main-card {
+    background-color: rgba(12, 10, 9, 0.75); /* neutral-950 with transparency */
+    border: 1px solid rgba(245, 245, 245, 0.1); /* neutral-100 with transparency */
+    border-radius: 24px;
+    padding: 2.5rem; /* 40px */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    width: 100%;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+}
+
+/* View Management */
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Headings and Gradients */
+h1, h2 {
+    color: #f5f5f5; /* neutral-100 */
+}
+
+.heading-gradient {
+    background-image: linear-gradient(to right, #f472b6, #ec4899); /* pink-400 to pink-500 */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Dropzone Styles */
+.dropzone-container {
+    border: 2px dashed rgba(245, 245, 245, 0.2);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.dropzone-container:hover, .dropzone-container.dropzone-active {
+    border-color: #ec4899; /* pink-500 */
+    background-color: rgba(236, 72, 153, 0.05);
+}
+
+/* Form Elements */
+.form-input {
+    width: 100%;
+    background-color: #1c1917; /* neutral-900 */
+    border: 1px solid #44403c; /* neutral-700 */
+    color: #f5f5f5; /* neutral-100 */
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.form-input::placeholder {
+    color: #78716c; /* neutral-500 */
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #ec4899; /* pink-500 */
+    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.5);
+}
+
+/* Buttons */
+.select-button {
+    background-color: #e2e8f0; /* slate-200 */
+    color: #1e293b; /* slate-800 */
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+.select-button:hover {
+    background-color: #cbd5e1; /* slate-300 */
+}
+
+.upload-button {
+    width: 100%;
+    background-image: linear-gradient(to right, #f472b6, #ec4899);
+    color: white;
+    font-weight: 700;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px -5px rgba(236, 72, 153, 0.5);
+}
+.upload-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px -5px rgba(236, 72, 153, 0.6);
+}
+.upload-button:disabled {
+    background: #44403c; /* neutral-700 */
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+.download-button {
+    margin-top: 1.5rem;
+    width: 100%;
+    background-color: #16a34a; /* green-600 */
+    color: white;
+    font-weight: 700;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+.download-button:hover {
+    background-color: #15803d; /* green-700 */
+}
+.download-button:disabled {
+     background-color: #44403c; /* neutral-700 */
+    cursor: not-allowed;
+}
+
+
+/* Link View Specifics */
+.share-link-input {
+    width: 100%;
+    background-color: #0c0a09; /* neutral-950 */
+    border: 1px solid #44403c; /* neutral-700 */
+    color: #a8a29e; /* neutral-400 */
+    border-radius: 8px;
+    padding: 1rem;
+    padding-right: 8rem; /* Make space for the button */
+    font-size: 0.9rem;
+}
+.share-link-input:focus {
+    outline:none;
+}
+
+.copy-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0.5rem;
+    background-color: #e2e8f0; /* slate-200 */
+    color: #1e293b; /* slate-800 */
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+.copy-button:hover {
+    background-color: #cbd5e1; /* slate-300 */
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: left;
+}
+
+/* Progress Bar */
+progress {
+    accent-color: #ec4899; /* pink-500 */
+}
+
